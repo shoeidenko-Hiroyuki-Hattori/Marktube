@@ -24,17 +24,66 @@ namespace Tepra_App
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            Dlete_bmp_file();
+            Copy_bmp_file();
+            /*
             try
             {
+                
+
                 ProcessStartInfo startInfo = new(@"\\Server02\②　掲示板\27.   掲示板（営業・購買G)\テプラ\" + label2.Text + ".tpe");
-                startInfo.UseShellExecute = true;
+               startInfo.UseShellExecute = true;
                 Process.Start(startInfo);
+               
             }
             catch
             {
                 MessageBox.Show("該当ファイルが見つかりませんでした");
             }
-            
+            */
+
         }
+
+
+
+        String original = @"\\Server02\②　掲示板\30.   掲示板（情報G）\マークチューブ印字画像";
+        String to = @"D:";
+
+        public void Dlete_bmp_file()
+        {
+            String[] strArrayFiles;
+            strArrayFiles = System.IO.Directory.GetFiles(to, "*.bmp");
+            foreach (string item in strArrayFiles)
+            {
+
+                MessageBox.Show(item);
+                System.IO.File.Delete(item);
+            }
+        }
+        public void Copy_bmp_file()
+        {
+            String[] strArrayFiles;
+            strArrayFiles = System.IO.Directory.GetFiles(original, "*.bmp");
+            foreach (string item in strArrayFiles)
+            {
+
+                String[] str;
+                str = item.Split(@"\");
+                System.IO.File.Copy(item, to + @"\" + str[str.Length-1] );
+              
+            }
+        }
+
+
+
+
+
+
+
     }
+
+
+
+
 }

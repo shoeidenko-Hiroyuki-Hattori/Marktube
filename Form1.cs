@@ -52,7 +52,7 @@ namespace Tepra_App
 
         private void Search(String str)
         {
-            sql = "select p.CODE,p.KCODE,h.NAME from TPiCSDB41.dbo.XPRTS p left join TPiCSDB41.dbo.XHEAD h on p.KCODE = h.CODE Where p.CODE = '" + str + "' and h.NAME like '%×ÍÞÙ¼°Ù%' order by p.KCODE";
+            sql = "select p.CODE,p.KCODE,h.NAME from TPiCSDB41.dbo.XPRTS p left join TPiCSDB41.dbo.XHEAD h on p.KCODE = h.CODE Where p.CODE = '" + str + "' and h.NAME like '%Ï°¸Á­°ÌÞ%' order by p.KCODE";
             dt = tpics.ExecuteSql(sql);
             if (dt.Rows.Count != 0)
             {
