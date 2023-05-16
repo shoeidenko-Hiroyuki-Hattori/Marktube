@@ -42,7 +42,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.button2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -52,7 +51,7 @@
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.Font = new System.Drawing.Font("Yu Gothic UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(142, 135);
+            this.textBox1.Location = new System.Drawing.Point(142, 71);
             this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(322, 50);
@@ -64,10 +63,10 @@
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.Silver;
             this.flowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(52, 198);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(52, 138);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(18, 15, 18, 15);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(893, 333);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(893, 393);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // label3
@@ -88,18 +87,18 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.PaleGreen;
             this.label1.Font = new System.Drawing.Font("Yu Gothic UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(52, 8);
+            this.label1.Location = new System.Drawing.Point(52, 13);
             this.label1.Margin = new System.Windows.Forms.Padding(9, 8, 9, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(751, 45);
+            this.label1.Size = new System.Drawing.Size(607, 45);
             this.label1.TabIndex = 2;
-            this.label1.Text = "品番を手入力する際は入力後Enterボタンを押してください";
+            this.label1.Text = "出荷明示票をQRリーダーで読み込んで下さい。";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Yu Gothic UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(52, 144);
+            this.label2.Location = new System.Drawing.Point(52, 80);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(62, 32);
             this.label2.TabIndex = 3;
@@ -135,13 +134,14 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Yu Gothic UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(480, 138);
+            this.button1.Location = new System.Drawing.Point(480, 74);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(115, 42);
             this.button1.TabIndex = 9;
             this.button1.Text = "クリア";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.Clear);
             // 
             // radioButton3
@@ -156,6 +156,7 @@
             this.radioButton3.TabStop = true;
             this.radioButton3.Text = "工程明示表";
             this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton3.Visible = false;
             this.radioButton3.CheckedChanged += new System.EventHandler(this.Clear);
             // 
             // radioButton4
@@ -177,7 +178,6 @@
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel1.BackColor = System.Drawing.Color.LightBlue;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.groupBox2);
@@ -196,37 +196,26 @@
             // 
             this.groupBox1.Controls.Add(this.radioButton1);
             this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Location = new System.Drawing.Point(554, 58);
+            this.groupBox1.Location = new System.Drawing.Point(610, 58);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Size = new System.Drawing.Size(391, 67);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Visible = false;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.radioButton3);
             this.groupBox2.Controls.Add(this.radioButton4);
-            this.groupBox2.Location = new System.Drawing.Point(52, 58);
+            this.groupBox2.Location = new System.Drawing.Point(843, 539);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Size = new System.Drawing.Size(456, 67);
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Yu Gothic UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button2.Location = new System.Drawing.Point(830, 138);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(115, 42);
-            this.button2.TabIndex = 17;
-            this.button2.Text = "出力";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
             // 
             // Form1
             // 
@@ -265,6 +254,5 @@
         private Label label3;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
-        private Button button2;
     }
 }
