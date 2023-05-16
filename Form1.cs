@@ -114,7 +114,7 @@ namespace Tepra_App
             }
             catch
             {
-                MessageBox.Show("出力パスを確認して下さい。");
+                MessageBox.Show("エラー:出力パスを確認して下さい。");
 
             }
 
