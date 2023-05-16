@@ -18,6 +18,9 @@ namespace Tepra_App
 
         private void Form1_Load(object sender, EventArgs e)
         {
+           
+           
+        
             radioButton1.Checked = true;
             radioButton4.Checked = true;
             if (args.Length != 0)
