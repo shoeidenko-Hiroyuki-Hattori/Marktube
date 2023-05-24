@@ -293,35 +293,57 @@ public class SqlDb_ShoeiDB
 
 
 
-
-
-public class MySqlDb_Karabako
+public class SqlDb_ShoeiMySQLDB
 {
-    private MySqlConnection _MyCon = null;
-    private MySqlTransaction _trn = null;
 
-    private void Connect()
+    // サーバー接続情報
+    private string server = "192.168.0.156";
+    private string database = "shoei_skanri";
+    private string user = "alluser";
+    private string pass = "wew111589";
+    private string charset = "utf8";
+
+    private MySqlConnection _Mycon = null/* TODO Change to default(_) if this is not a reference type */;
+
+    public SqlDb_ShoeiMySQLDB(string svr = "192.168.0.156", string dbn = "marktv", string uid = "alluser", string pas = "wew111589")
     {
-        string server = "192.168.0.156";
-        string database = "karabako";
-        string user = "alluser";
-        string pass = "wew111589";
-        string charset = "utf8";
-        string connstr = string.Format("Server={0};Database={1};Uid={2};Pwd={3};Charset={4};SslMode = none", server, database, user, pass, charset);
-
-        _MyCon = new MySqlConnection(connstr);
-        _MyCon.Open();
+        server = svr;
+        database = dbn;
+        user = uid;
+        pass = pas;
     }
 
+    // #################
+    // ##　データベースとの接続
+    // #################
+    private void Connect()
+    {
+        try
+        {
 
+            // 接続確認
+            if (_Mycon == null)
+                _Mycon = new MySqlConnection();
 
+            // 接続
+            string connstr = string.Format("Server={0};Database={1};Uid={2};Pwd={3};Charset={4}", server, database, user, pass, charset);
+            _Mycon.ConnectionString = connstr;
+            _Mycon.Open();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Connect Error", ex);
+        }
+    }
+
+    // ####################
+    // ##　データベースとの接続解除
+    // ####################
     private void Disconnect()
     {
         try
         {
-            _MyCon.Close();
-            if (_MyCon.State == ConnectionState.Open) { }
-            else { }
+            _Mycon.Close();
         }
         catch (Exception ex)
         {
@@ -329,42 +351,23 @@ public class MySqlDb_Karabako
         }
     }
 
-
-
-    public DataTable ExecuteMySql(string Mysql, int tot = -1)
+    // ####################
+    // ##　SQL実行(データ取得)
+    // ####################
+    public DataTable ExecuteSql(string sql)
     {
         this.Connect();
-
-        // データを格納するテーブル作成
-        DataTable dt = new();
-
-        // SQL文と接続情報を指定し、データアダプタを作成
-        MySqlDataAdapter da = new(Mysql, _MyCon);
-
-        // データ取得
-        da.Fill(dt);
-
-        this.Disconnect();
-        return dt;
-    }
-
-    public int ExecutenonMySql(string Mysql, int tot = -1)
-    {
-        this.Connect();
-
-        int dt = new();
+        DataTable dt = new DataTable();
 
         try
         {
-            MySqlCommand mysqlCommand = new(Mysql, _MyCon, _trn);
+            MySqlCommand sqlCommand = new MySqlCommand(sql, _Mycon);
 
-            if (tot > -1)
-                mysqlCommand.CommandTimeout = tot;
+            MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand);
 
-
-            dt = mysqlCommand.ExecuteNonQuery();
-
-            mysqlCommand.Dispose();
+            adapter.Fill(dt);
+            adapter.Dispose();
+            sqlCommand.Dispose();
         }
         catch (Exception ex)
         {
@@ -373,5 +376,71 @@ public class MySqlDb_Karabako
 
         this.Disconnect();
         return dt;
+    }
+
+    // ####################
+    // ##　SQL実行(Update, Insert)
+    // ####################
+    public int ExecutenonSql(string sql, int tot = -1)
+    {
+        this.Connect();
+
+        int dt = new int();
+
+        try
+        {
+            MySqlCommand sqlCommand = new MySqlCommand(sql, _Mycon);
+
+            dt = sqlCommand.ExecuteNonQuery();
+
+            sqlCommand.Dispose();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("ExecuteSql Error", ex);
+        }
+
+        this.Disconnect();
+        return dt;
+    }
+
+    // ####################
+    // ##　SQL実行(データ取得)
+    // ####################
+    public string ExecuteScalar(string sql, int tot = -1)
+    {
+        this.Connect();
+        string db_Scalar;
+        object ReturnValue;
+
+        try
+        {
+            MySqlCommand sqlCommand = new MySqlCommand(sql, _Mycon);
+
+            if (tot > -1)
+                sqlCommand.CommandTimeout = tot;
+
+
+            ReturnValue = sqlCommand.ExecuteScalar();
+            if (ReturnValue == DBNull.Value | ReturnValue == null)
+                db_Scalar = "";
+            else
+                db_Scalar = ReturnValue.ToString();
+            sqlCommand.Dispose();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("ExecuteSql Error", ex);
+        }
+
+        this.Disconnect();
+        return db_Scalar;
+    }
+
+
+
+    public void Change_db(string db_name)
+    {
+        database = db_name;
     }
 }
